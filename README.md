@@ -1,1 +1,6 @@
-[Our web server address](http://dravvo.ap01.aws.af.cm/)
+dravvo-backend
+==============
+
+test back end server hosted on appfog for testing
+
+server location: [http://dravvo.ap01.aws.af.cm/](http://dravvo.ap01.aws.af.cm/)
