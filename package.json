@@ -1,8 +1,30 @@
 {
- "name":"af-node-base",
-  "version":"0.0.1",
-  "dependencies":{
-      "express":"",
-      "coffee-script":""
+    "name": "express-coffee"
+  , "version": "1.5.1"
+  , "private": true
+  , "dependencies": {
+    "express": "3.0.3" 
+    , "coffee-script": "1.4.0"
+    , "jade": "0.27.7"
+    , "connect-assets": "2.3.3"
+    , "stylus": "0.31.0"
+    , "nib": "0.9.0"
+    , "markdown": "0.4.0"
+    , "which": "*"
+  }, "scripts": {
+    "install": "node node_modules/coffee-script/bin/cake build",
+    "start": "node server.js",
+    "test": "mocha --require should --compilers coffee:coffee-script --colors"
+  }, "devDependencies": {
+    "coffee-script": "*"
+    , "mocha": "*"
+    , "should": "*"
+    , "request": "*"
+    , "supervisor": "*"
+    , "docco": "*"
+  }, 
+  "engines": {
+    "node": "~0.8.x",
+    "npm": "1.1.x"
   }
 }
