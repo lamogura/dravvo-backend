@@ -2,7 +2,6 @@ TextMessage = require '../models/TextMessage'
 util = require 'util'
 
 module.exports.home = (req, res) ->
-	
 	TextMessage.find({}).sort('-receivedAt').execFind (err, msgs) ->
 		if err
 			console.log err
@@ -25,13 +24,13 @@ module.exports.newmsg = (req, res) ->
 		if err
 			console.log err
 			res.write JSON.stringify
-				status: "err"
-				text: err
+				status: "error"
+				details: err
 		else
 			console.log "saved successful"
 			res.write JSON.stringify
 				status: "ok"
-				savedMsg: msg
+				saved_msg: msg
 		res.end()
 
 

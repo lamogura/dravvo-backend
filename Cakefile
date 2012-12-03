@@ -12,7 +12,6 @@ reset = '\x1B[0m'
 pkg = JSON.parse fs.readFileSync('./package.json')
 testCmd = pkg.scripts.test
 startCmd = pkg.scripts.start
-  
 
 log = (message, color, explanation) ->
   console.log color + message + reset + ' ' + (explanation or '')
