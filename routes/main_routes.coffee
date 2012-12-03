@@ -16,7 +16,7 @@ module.exports.newmsg = (req, res) ->
 
 	msg = new TextMessage
 		username: req.body.username
-		text: req.body.message
+		text: req.body.text
 
 	console.log "saving message: #{util.inspect(msg)}"
 	msg.save (err, msg) ->
