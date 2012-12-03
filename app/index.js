@@ -27,9 +27,16 @@ app.configure('development', function() {
 });
 
 app.configure('production', function() {
+  var dburl, env, mongo;
   console.log("* production mode");
   app.use(express.errorHandler());
-  return db.startup('mongodb://localhost/expdb');
+  if (!(process.env.VCAP_SERVICES != null)) {
+    console.log("err: couldnt find VCAP_SERVICES in process.env");
+  }
+  env = JSON.parse(process.env.VCAP_SERVICES);
+  mongo = env['mongodb-1.8'][0]['credentials'];
+  dburl = "mongodb://" + mongo.username + ":" + mongo.password + "@" + mongo.hostname + ":" + mongo.port + "/" + mongo.db;
+  return db.startup(dburl);
 });
 
 require('../routes')(app);
