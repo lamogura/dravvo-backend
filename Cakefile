@@ -78,7 +78,7 @@ task 'dev', 'start dev env', ->
   coffee.stderr.pipe process.stderr
   log 'Watching coffee files', green
   # watch_js
-  supervisor = spawn 'node', ['./node_modules/supervisor/lib/cli-wrapper.js','-w','app,views,routes,models', '-e', 'coffee|js|jade', 'server']
+  supervisor = spawn 'node', ['./node_modules/supervisor/lib/cli-wrapper.js','-w','app', '-e', 'coffee|js', 'server']
   supervisor.stdout.pipe process.stdout
   supervisor.stderr.pipe process.stderr
   log 'Watching js files and running server', green
