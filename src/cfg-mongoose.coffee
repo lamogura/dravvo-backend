@@ -4,14 +4,16 @@ TextMessage = require('../models/TextMessage')
 
 module.exports =
 
-	startup: (dbURL) ->
+	startup: (dbURL, withSeeds=false) ->
 		console.log "Waiting for MongoDB connection..."
 		mongoose.connect(dbURL)
-		mongoose.connection.on 'open', ->	console.log '...connected'
+		mongoose.connection.on 'open', =>	
+			console.log '...connected'
+			@seedTextMessages() if withSeeds
 
 	close: -> mongoose.disconnect()
 
-	seedTextMessages: (doClearFirst=false) ->
+	seedTextMessages: (doClearFirst=true) ->
 		TextMessage.collection.drop() if doClearFirst
 		
 		msgs = require '../stubs/TextMessages'

@@ -8,11 +8,18 @@ util = require('util');
 TextMessage = require('../models/TextMessage');
 
 module.exports = {
-  startup: function(dbURL) {
+  startup: function(dbURL, withSeeds) {
+    var _this = this;
+    if (withSeeds == null) {
+      withSeeds = false;
+    }
     console.log("Waiting for MongoDB connection...");
     mongoose.connect(dbURL);
     return mongoose.connection.on('open', function() {
-      return console.log('...connected');
+      console.log('...connected');
+      if (withSeeds) {
+        return _this.seedTextMessages();
+      }
     });
   },
   close: function() {
@@ -21,7 +28,7 @@ module.exports = {
   seedTextMessages: function(doClearFirst) {
     var msg, msgs, newMsg, _i, _len;
     if (doClearFirst == null) {
-      doClearFirst = false;
+      doClearFirst = true;
     }
     if (doClearFirst) {
       TextMessage.collection.drop();

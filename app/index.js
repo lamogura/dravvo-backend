@@ -12,7 +12,6 @@ db = require('./cfg-mongoose');
 app = express();
 
 app.configure(function() {
-  app.set('view engine', 'jade');
   return app.use(express.bodyParser());
 });
 
@@ -22,8 +21,7 @@ app.configure('development', function() {
     dumpExceptions: true,
     showStack: true
   }));
-  db.startup('mongodb://localhost/dravvo');
-  return db.seedTextMessages(true);
+  return db.startup('mongodb://localhost/dravvo', true);
 });
 
 app.configure('production', function() {
