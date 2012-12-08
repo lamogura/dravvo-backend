@@ -9,10 +9,10 @@ app.configure ->
   app.use express.bodyParser()
 
 app.configure 'development', ->
-	console.log "* development mode"
-	app.use express.errorHandler { dumpExceptions: true, showStack: true }
-	db.startup 'mongodb://localhost/dravvo', true
-	
+  console.log "* development mode"
+  app.use express.errorHandler { dumpExceptions: true, showStack: true }
+  db.startup 'mongodb://localhost/dravvo', true
+  
 app.configure 'production', ->
   console.log "* production mode"
   app.use express.errorHandler()
