@@ -5,7 +5,7 @@ JSON_CONTENT = {"Content-Type": "application/json"}
 
 module.exports.showAll = (req, res) ->
   console.log "GET to '/message/all'"
-  TextMessage.find({}).sort('_id').execFind (error, msgs) ->
+  TextMessage.find({}).sort('-_id').execFind (error, msgs) ->
     if error
       status_code = 500 # server error
       json_response = JSON.stringify {error}
