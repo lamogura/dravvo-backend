@@ -2,7 +2,7 @@ TextMessage = require '../models/TextMessage'
 util = require 'util'
 
 module.exports.showAll = (req, res) ->
-  console.log "GET to '/message/all'"
+  console.log "#{req.method} to '#{req.url}' with body: #{util.inspect(req.body)}'"
   TextMessage.find({}).sort('-_id').execFind (error, msgs) ->
     if error
       status_code = 500 # server error
@@ -21,7 +21,7 @@ module.exports.showAll = (req, res) ->
     res.end json_response
     
 module.exports.newMessage = (req, res) -> 
-  console.log "POST to '/message/new' with body: #{util.inspect(req.body)}"
+  console.log "#{req.method} to '#{req.url}' with body: #{util.inspect(req.body)}'"
 
   msg = new TextMessage
     username:     req.body.username
@@ -41,7 +41,8 @@ module.exports.newMessage = (req, res) ->
     res.end json_response
 
 module.exports.deleteAll = (req, res) -> 
-  console.log "DELETE to '/message/all' with body: #{util.inspect(req.body)}"
+  console.log "#{req.method} to '#{req.url}' with body: #{util.inspect(req.body)}'"
+
   status_code = 200 # ok
 
   if req.body.password is "matsuya"
@@ -61,5 +62,21 @@ module.exports.deleteAll = (req, res) ->
     json_response = JSON.stringify {result: "Not an authorized action, sorry."}
 
     res.writeHead status_code, {"Content-Type": "application/json"}
+    console.log "Response: #{json_response}"
+    res.end json_response
+
+module.exports.deleteMsg = (req, res) ->
+  console.log "#{req.method} to '#{req.url}' with body: #{util.inspect(req.body)}'"
+
+  console.log "Deleting TextMessage with _id: #{req.params.dbID}"
+  TextMessage.remove { _id: req.params.dbID }, (error) ->
+    status_code = 200 # ok
+    if error
+      status_code = 500 # server error
+      json_response = JSON.stringify {error}
+    else
+      json_response = JSON.stringify {result: "Deleted message sucessfully."}
+
+    res.writeHead status_code, JSON_CONTENT
     console.log "Response: #{json_response}"
     res.end json_response
