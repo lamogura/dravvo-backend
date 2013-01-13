@@ -1,12 +1,6 @@
-message_routes = require './message_routes'
-apns_routes = require './apns_routes'
+game_routes = require './game_routes'
 
 module.exports = (app) ->
-  app.get  '/message/all', message_routes.showAll
-  app.post '/message/new', message_routes.newMessage
-  
-  app.delete '/message/:dbID/delete', message_routes.deleteMsg
-  app.delete '/message/all',          message_routes.deleteAll
-
-  app.post '/apns/testsend', apns_routes.testSend
-  app.post '/apns/register', apns_routes.registerDevice
+  app.post '/game/new',            game_routes.newGame
+  app.get  '/game/:gameID',        game_routes.getGame
+  app.put  '/game/:gameID/update', game_routes.updateGame

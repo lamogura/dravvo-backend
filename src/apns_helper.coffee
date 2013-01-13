@@ -1,20 +1,15 @@
 apns = require 'apn'
 util = require 'util'
-path = require 'path' 
 
 errorHandler = (err, notification) ->
   console.log "Error sending APNS notification"
   console.log util.inspect(err)
   console.log util.inspect(notification)
 
-module.exports.registerDevice = (req, res) ->
-  res.end "Not yet implemented"
-
-module.exports.testSend = (req, res) ->
-  console.log "#{req.method} to '#{req.url}' with body: #{util.inspect(req.body)}'"
-
-  deviceToken = req.body.deviceToken
-  console.log "Attempting to send APNS to DeviceWithToken: #{deviceToken}"
+module.exports.SendAPN = (deviceToken, message, badgeCount=0, alertSound="ping.aiff", payload=null) ->
+  console.log "Sending notification to APNS for device: #{deviceToken}"
+  console.log "*** returning premature, no actual APNS sent ***"
+  return 0
 
   options =
     cert: 'apns-prod-cert.pem'                # Certificate file path
@@ -37,16 +32,12 @@ module.exports.testSend = (req, res) ->
   apnsConnection = new apns.Connection(options)
   iosDevice = new apns.Device(deviceToken)
 
-  note = new apns.Notification();
+  note = new apns.Notification()
   note.expiry = Math.floor(Date.now() / 1000) + 3600 # Expires 1 hour from now.
-  note.badge = 2
-  note.sound = "ping.aiff"
-  note.alert = req.body.message
-  note.payload = {'messageFrom': 'Caroline'}
+  note.badge = badgeCount
+  note.sound = alertSound
+  note.alert = message
+  note.payload = payload
   note.device = iosDevice
 
   apnsConnection.sendNotification(note)
-
-  json_response = JSON.stringify {result: "Notification given to Dravvo server to send to APNS."}
-  res.writeHead 200, {"Content-Type": "application/json"}
-  res.end json_response

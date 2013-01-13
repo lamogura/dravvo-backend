@@ -1,7 +1,7 @@
 express = require 'express'
 stylus  = require 'stylus'
 assets  = require 'connect-assets'
-db      = require './cfg-mongoose'
+db      = require './mongoose_helper'
 
 app = express()
 
@@ -11,7 +11,7 @@ app.configure ->
 app.configure 'development', ->
   console.log "* development mode"
   app.use express.errorHandler { dumpExceptions: true, showStack: true }
-  db.startup 'mongodb://localhost/dravvo', true
+  db.startup 'mongodb://localhost/dravvo'
   
 app.configure 'production', ->
   console.log "* production mode"

@@ -7,7 +7,7 @@ stylus = require('stylus');
 
 assets = require('connect-assets');
 
-db = require('./cfg-mongoose');
+db = require('./mongoose_helper');
 
 app = express();
 
@@ -21,7 +21,7 @@ app.configure('development', function() {
     dumpExceptions: true,
     showStack: true
   }));
-  return db.startup('mongodb://localhost/dravvo', true);
+  return db.startup('mongodb://localhost/dravvo');
 });
 
 app.configure('production', function() {
