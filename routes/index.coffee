@@ -9,3 +9,4 @@ module.exports = (app) ->
   app.delete '/message/all',          message_routes.deleteAll
 
   app.post '/apns/testsend', apns_routes.testSend
+  app.post '/apns/register', apns_routes.registerDevice
