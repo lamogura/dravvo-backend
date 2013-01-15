@@ -10,11 +10,11 @@ deviceTokens =
 module.exports.newGame = (req, res) -> 
   console.log "#{req.method} to '#{req.url}' with body: #{util.inspect(req.body)}'"
 
-  msg = new Game
+  game = new Game
     nextTurn: req.body.deviceToken
 
-  console.log "Saving Game to DB: #{util.inspect(msg)}"
-  msg.save (error, game) ->
+  console.log "Saving Game to DB: #{util.inspect(game)}"
+  game.save (error, game) ->
     status_code = 200 # ok
     if error
       status_code = 500 # server error
