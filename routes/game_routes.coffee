@@ -57,7 +57,7 @@ module.exports.updateGame = (req, res) ->
     else
       if req.body.deviceToken isnt game.nextTurn
         status_code = 500
-        json_response = JSON.stringify {error: "It is not your turn, no cheatin!!!"}
+        json_response = JSON.stringify {error: {message: "It is not your turn, no cheatin!!!"} }
         res.writeHead status_code, {"Content-Type": "application/json"}
         console.log "Response: #{json_response}"
         res.end json_response
